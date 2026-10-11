@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skreening Kesehatan Mental · [Nama Klinik]</title>
+<meta name="description" content="Skreening kesehatan mental dengan kuesioner SRQ-20 di [Nama Klinik], [Kota].">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #52796F;
+  --secondary: #E8F0EC;
+  --bg: #FFFFFF;
+  --text: #1F2A26;
+  --muted: #4A5550;
+  --border: color-mix(in srgb, var(--primary) 25%, #FFFFFF);
+  --radius: 12px;
+  --line: color-mix(in srgb, var(--primary) 35%, var(--secondary));
+  --header-h: 65px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+}
+
+h1, h2, h3 { margin: 0 0 0.5em; line-height: 1.25; font-weight: 600; }
+h1 { font-size: clamp(2rem, 5vw, 3.25rem); color: var(--primary); }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2.25rem); color: var(--primary); }
+h3 { font-size: 1.25rem; }
+p { margin: 0 0 1em; max-width: 65ch; }
+a { color: inherit; }
+
+:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; border-radius: 4px; }
+
+.container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.narrow { max-width: 800px; }
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner { display: flex; align-items: center; gap: 16px; min-height: 64px; padding-top: 8px; padding-bottom: 8px; }
+.brand { margin-right: auto; min-width: 0; overflow-wrap: break-word; font-size: 0.9375rem; line-height: 1.3; font-weight: 600; color: var(--primary); text-decoration: none; }
+.nav { display: none; gap: 24px; }
+.nav a { padding: 10px 0; font-weight: 500; text-decoration: none; }
+.nav a:hover { color: var(--primary); }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 24px;
+  border: 2px solid var(--primary);
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn-primary { background: var(--primary); color: #FFFFFF; }
+.btn-secondary { background: transparent; color: var(--primary); }
+.btn-small { flex-shrink: 0; min-height: 44px; padding: 8px 16px; font-size: 0.875rem; }
+.btn-primary:hover {
+  background: color-mix(in srgb, var(--primary) 85%, #000000);
+  border-color: color-mix(in srgb, var(--primary) 85%, #000000);
+}
+.btn-secondary:hover {
+  color: color-mix(in srgb, var(--primary) 70%, #000000);
+  border-color: color-mix(in srgb, var(--primary) 70%, #000000);
+}
+@media (max-width: 479px) { .btn-label-extra { display: none; } }
+
+/* Skreening */
+.skreening { min-height: calc(100svh - var(--header-h)); padding: 48px 0; background: var(--secondary); }
+.skreening [hidden] { display: none; }
+.lead { font-size: 1.125rem; }
+.actions { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+
+/* Pengumuman */
+.announce { margin-top: 32px; padding: 24px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); }
+.announce-title { margin-bottom: 0.25em; font-size: 1.25rem; font-weight: 600; color: var(--primary); }
+.announce-intro { margin-bottom: 1.5em; }
+.info { margin: 0; }
+.info div { display: flex; flex-direction: column; gap: 2px; padding: 14px 0; border-top: 1px solid var(--line); }
+.info dt { font-weight: 600; }
+.info dd { margin: 0; }
+
+/* Kuesioner */
+.q-intro { margin-bottom: 24px; }
+.q-list { margin: 0; padding: 0; list-style: none; counter-reset: q; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); }
+.q { counter-increment: q; padding: 20px 20px 22px; border-top: 1px solid var(--line); }
+.q:first-child { border-top: 0; }
+.q fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.q legend { display: flex; gap: 12px; padding: 0; margin-bottom: 12px; font-weight: 500; }
+.q legend::before { content: counter(q) "."; min-width: 1.75em; color: var(--primary); font-weight: 600; }
+.choices { display: flex; gap: 12px; padding-left: calc(1.75em + 12px); }
+.choice { position: relative; }
+.choice input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.choice label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 88px;
+  min-height: 44px;
+  padding: 8px 20px;
+  border: 2px solid var(--primary);
+  border-radius: 999px;
+  color: var(--primary);
+  font-weight: 500;
+  cursor: pointer;
+}
+.choice input:checked + label { background: var(--primary); color: #FFFFFF; }
+.choice input:focus-visible + label { outline: 3px solid var(--text); outline-offset: 3px; }
+
+.progress { margin: 24px 0 0; font-weight: 500; color: var(--muted); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary:disabled:hover { background: var(--primary); border-color: var(--primary); }
+
+/* Form data diri */
+.form-card { margin-top: 24px; padding: 24px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); }
+.field { margin-bottom: 20px; }
+.field:last-child { margin-bottom: 0; }
+.field label { display: block; margin-bottom: 6px; font-weight: 500; }
+.field input {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 16px;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+.field-hint { margin: 6px 0 0; font-size: 0.875rem; color: var(--muted); }
+
+/* Hasil skor */
+.result-card { margin-top: 24px; padding: 32px 24px; text-align: center; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); }
+.result-label { margin: 0; max-width: none; font-weight: 500; color: var(--muted); }
+.result-score { margin: 0; max-width: none; font-size: clamp(3rem, 12vw, 5rem); line-height: 1.2; font-weight: 600; color: var(--primary); }
+.result-note { margin: 8px 0 0; max-width: none; color: var(--muted); }
+
+/* Popup pemberitahuan */
+#skreening-notice {
+  width: min(440px, calc(100% - 32px));
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+}
+#skreening-notice::backdrop { background: rgba(31, 42, 38, 0.5); }
+#skreening-notice .btn { margin-top: 8px; }
+
+/* Footer */
+.site-footer { padding: 32px 0; border-top: 1px solid var(--border); font-size: 0.875rem; }
+.site-footer p { margin: 0; }
+
+@media (min-width: 768px) {
+  .container { padding: 0 32px; }
+  .nav { display: flex; }
+  .brand { font-size: 1rem; }
+  .skreening { padding: 64px 0; }
+  .actions { flex-direction: row; }
+  .announce { padding: 32px; }
+  .info div { flex-direction: row; gap: 24px; }
+  .info dt { flex: none; width: 160px; }
+  .q { padding: 24px 32px 26px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .btn, .choice label { transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html">[Nama Klinik]</a>
+    <nav class="nav" aria-label="Navigasi utama">
+      <a href="index.html#dokter">Tentang Dokter</a>
+      <a href="index.html#konsultasi">Konsultasi</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#lokasi">Lokasi</a>
+    </nav>
+    <a class="btn btn-primary btn-small" href="reservasi.html">Buat<span class="btn-label-extra"> janji temu</span></a>
+  </div>
+</header>
+
+<main>
+  <section class="skreening" id="skreening" aria-labelledby="skreening-title">
+    <div class="container narrow">
+
+      <h1 id="skreening-title" tabindex="-1">Skreening Kesehatan Mental</h1>
+
+      <!-- Tahap 1: pengumuman -->
+      <div id="step-info">
+        <div class="announce">
+          <p class="announce-title">Tentang kuesioner SRQ-20</p>
+          <p class="announce-intro">Self Reporting Questionnaire (SRQ-20) dikembangkan oleh WHO. Alat skrining berisi 20 pertanyaan ini digunakan di Indonesia untuk mendeteksi gangguan mental emosional (GME) dan stres. Kamu akan menjawab pertanyaan tentang gejala yang dialami dalam 30 hari terakhir dengan pilihan ya atau tidak. Gejalanya meliputi kecemasan, depresi, dan keluhan fisik. Semakin tinggi skor, semakin tinggi pula tingkat stres yang mungkin dialami.</p>
+          <dl class="info">
+            <div>
+              <dt>Tujuan</dt>
+              <dd>Deteksi dini gangguan mental. Kuesioner ini dirancang untuk lingkungan dengan sumber daya terbatas dan banyak dipakai dalam sistem layanan kesehatan primer di Indonesia.</dd>
+            </div>
+            <div>
+              <dt>Jangka waktu</dt>
+              <dd>Gejala dinilai berdasarkan 30 hari terakhir.</dd>
+            </div>
+            <div>
+              <dt>Pertanyaan</dt>
+              <dd>20 pertanyaan yang mencakup gejala umum seperti sakit kepala, kehilangan nafsu makan, gangguan tidur, kecemasan, kurang energi, dan pikiran untuk bunuh diri.</dd>
+            </div>
+            <div>
+              <dt>Interpretasi</dt>
+              <dd>Skor 6 atau lebih biasanya menunjukkan potensi gangguan mental emosional dan perlunya penilaian lebih lanjut oleh profesional. Titik batas ini bisa berbeda tergantung penelitiannya.</dd>
+            </div>
+            <div>
+              <dt>Ketersediaan</dt>
+              <dd>Alat ini sering digunakan puskesmas di Indonesia untuk skrining kesehatan mental masyarakat.</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="actions">
+          <a class="btn btn-secondary" href="index.html">Kembali ke halaman utama</a>
+          <button type="button" class="btn btn-primary" id="btn-lanjut">Lanjut</button>
+        </div>
+      </div>
+
+      <!-- Tahap 2: pertanyaan -->
+      <div id="step-questions" hidden>
+        <p class="lead q-intro">Jawab sesuai yang kamu alami dalam <strong>30 hari terakhir</strong>. Tidak ada jawaban benar atau salah.</p>
+        <form id="srq-form" novalidate>
+          <ol class="q-list" id="q-list"></ol>
+        </form>
+        <p class="progress" id="progress" aria-live="polite">Terjawab 0 dari 20</p>
+        <div class="actions" style="margin-top:16px">
+          <button type="button" class="btn btn-secondary" id="btn-kembali">Kembali</button>
+          <button type="button" class="btn btn-primary" id="btn-next" disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- Tahap 3: data diri -->
+      <div id="step-form" hidden>
+        <p class="lead q-intro">Isi data dirimu dengan benar.</p>
+        <form class="form-card" id="identity-form" novalidate>
+          <div class="field">
+            <label for="nama">Nama lengkap</label>
+            <input type="text" id="nama" name="nama" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="tgl-lahir">Tanggal lahir</label>
+            <input type="date" id="tgl-lahir" name="tgl_lahir" autocomplete="bday" required>
+          </div>
+          <div class="field">
+            <label for="nik">NIK</label>
+            <input type="text" id="nik" name="nik" inputmode="numeric" maxlength="16" pattern="[0-9]{16}" autocomplete="off" aria-describedby="nik-hint" required>
+            <p class="field-hint" id="nik-hint">16 digit angka sesuai KTP.</p>
+          </div>
+        </form>
+        <div class="actions">
+          <button type="button" class="btn btn-secondary" id="btn-kembali-form">Kembali</button>
+          <button type="button" class="btn btn-primary" id="btn-next-form">Next</button>
+        </div>
+      </div>
+
+      <!-- Tahap 4: hasil skor -->
+      <div id="step-result" hidden>
+        <div class="result-card" aria-live="polite">
+          <p class="result-label">Skor kamu</p>
+          <p class="result-score" id="result-score">–</p>
+          <p class="result-note" id="result-note"></p>
+        </div>
+        <div class="actions">
+          <button type="button" class="btn btn-secondary" id="btn-kembali-result">Kembali</button>
+          <a class="btn btn-primary" href="index.html">Kembali ke halaman utama</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© [Tahun] [Nama Klinik]</p>
+  </div>
+</footer>
+
+<!-- Notifikasi pemberitahuan: muncul otomatis saat halaman dibuka -->
+<dialog id="skreening-notice" aria-labelledby="skreening-notice-title">
+  <h3 id="skreening-notice-title">Sebelum mulai</h3>
+  <p>Skreening ini hanya gambaran awal, bukan diagnosis. Hasil akhirnya tetap perlu dibicarakan dengan dokter.</p>
+  <p>Kalau kamu merasa dalam bahaya atau ingin menyakiti diri sendiri, segera hubungi layanan darurat atau orang terdekat. Layanan Kemenkes: 119 ext. 8.</p>
+  <button type="button" class="btn btn-primary" id="skreening-notice-close">Saya mengerti</button>
+</dialog>
+
+<script>
+(function () {
+  // Notifikasi saat halaman dibuka
+  var notice = document.getElementById('skreening-notice');
+  var closeBtn = document.getElementById('skreening-notice-close');
+  if (notice && typeof notice.showModal === 'function') {
+    closeBtn.addEventListener('click', function () { notice.close(); });
+    notice.showModal();
+  }
+
+  // Daftar pertanyaan SRQ-20
+  var questions = [
+    'Apakah Anda sering menderita sakit kepala?',
+    'Apakah Anda kehilangan nafsu makan?',
+    'Apakah Anda tidur tidak nyenyak?',
+    'Apakah Anda mudah merasa takut?',
+    'Apakah Anda merasa cemas, tegang, atau khawatir?',
+    'Apakah tangan Anda gemetar?',
+    'Apakah pencernaan Anda terganggu atau buruk?',
+    'Apakah Anda sulit berpikir jernih?',
+    'Apakah Anda merasa tidak bahagia?',
+    'Apakah Anda menangis lebih sering dari biasanya?',
+    'Apakah Anda merasa sulit menikmati kegiatan sehari-hari?',
+    'Apakah Anda mengalami kesulitan dalam mengambil keputusan?',
+    'Apakah pekerjaan sehari-hari Anda terganggu atau terasa sulit dilakukan?',
+    'Apakah Anda merasa tidak mampu melakukan hal-hal yang bermanfaat dalam hidup?',
+    'Apakah Anda kehilangan minat pada berbagai hal?',
+    'Apakah Anda merasa tidak berharga?',
+    'Apakah Anda mempunyai pikiran untuk mengakhiri hidup Anda?',
+    'Apakah Anda merasa lelah sepanjang waktu?',
+    'Apakah Anda merasa tidak enak di perut?',
+    'Apakah Anda mudah lelah?'
+  ];
+
+  var list = document.getElementById('q-list');
+  questions.forEach(function (text, i) {
+    var n = i + 1;
+    var li = document.createElement('li');
+    li.className = 'q';
+    li.innerHTML =
+      '<fieldset>' +
+        '<legend>' + text + '</legend>' +
+        '<div class="choices">' +
+          '<div class="choice"><input type="radio" name="q' + n + '" id="q' + n + '-ya" value="1"><label for="q' + n + '-ya">Ya</label></div>' +
+          '<div class="choice"><input type="radio" name="q' + n + '" id="q' + n + '-tidak" value="0"><label for="q' + n + '-tidak">Tidak</label></div>' +
+        '</div>' +
+      '</fieldset>';
+    list.appendChild(li);
+  });
+
+  // Pindah antar tahap: pengumuman -> pertanyaan -> data diri
+  var stepInfo = document.getElementById('step-info');
+  var stepQuestions = document.getElementById('step-questions');
+  var stepForm = document.getElementById('step-form');
+  var stepResult = document.getElementById('step-result');
+  var title = document.getElementById('skreening-title');
+
+  function show(step) {
+    stepInfo.hidden = step !== 'info';
+    stepQuestions.hidden = step !== 'questions';
+    stepForm.hidden = step !== 'form';
+    stepResult.hidden = step !== 'result';
+    window.scrollTo({ top: 0 });
+    title.focus({ preventScroll: true });
+  }
+
+  document.getElementById('btn-lanjut').addEventListener('click', function () { show('questions'); });
+  document.getElementById('btn-kembali').addEventListener('click', function () { show('info'); });
+  document.getElementById('btn-next').addEventListener('click', function () { show('form'); });
+  document.getElementById('btn-kembali-form').addEventListener('click', function () { show('questions'); });
+  document.getElementById('btn-kembali-result').addEventListener('click', function () { show('form'); });
+
+  // Perhitungan skor: SENGAJA DIKOSONGI DULU.
+  // `jawaban` berisi 20 angka sesuai urutan pertanyaan (1 = Ya, 0 = Tidak).
+  // Isi fungsi ini nanti, lalu kembalikan angka skornya.
+  function hitungSkor(jawaban) {
+    return null;
+  }
+
+  // Next di form data diri -> tampilkan skor
+  document.getElementById('btn-next-form').addEventListener('click', function () {
+    var identity = document.getElementById('identity-form');
+    if (!identity.reportValidity()) return;
+
+    var jawaban = [];
+    for (var n = 1; n <= questions.length; n++) {
+      var checked = document.querySelector('#srq-form input[name="q' + n + '"]:checked');
+      jawaban.push(checked ? Number(checked.value) : null);
+    }
+
+    var skor = hitungSkor(jawaban);
+    var scoreEl = document.getElementById('result-score');
+    var noteEl = document.getElementById('result-note');
+    if (skor === null || skor === undefined) {
+      scoreEl.textContent = '–';
+      noteEl.textContent = 'Perhitungan skor belum diatur.';
+    } else {
+      scoreEl.textContent = skor;
+      noteEl.textContent = '';
+    }
+    show('result');
+  });
+
+  // Tombol Next aktif setelah 20 pertanyaan terjawab
+  var form = document.getElementById('srq-form');
+  var nextBtn = document.getElementById('btn-next');
+  var progress = document.getElementById('progress');
+
+  function updateProgress() {
+    var answered = 0;
+    for (var n = 1; n <= questions.length; n++) {
+      if (form.querySelector('input[name="q' + n + '"]:checked')) answered++;
+    }
+    progress.textContent = answered === questions.length
+      ? 'Semua pertanyaan sudah terjawab'
+      : 'Terjawab ' + answered + ' dari ' + questions.length;
+    nextBtn.disabled = answered !== questions.length;
+  }
+  form.addEventListener('change', updateProgress);
+  updateProgress();
+
+  // NIK hanya angka
+  var nik = document.getElementById('nik');
+  nik.addEventListener('input', function () {
+    nik.value = nik.value.replace(/\D/g, '').slice(0, 16);
+  });
+
+  // Tanggal lahir tidak boleh melewati hari ini
+  var tgl = document.getElementById('tgl-lahir');
+  var today = new Date();
+  tgl.max = today.getFullYear() + '-' +
+    String(today.getMonth() + 1).padStart(2, '0') + '-' +
+    String(today.getDate()).padStart(2, '0');
+})();
+</script>
+
+</body>
+</html>

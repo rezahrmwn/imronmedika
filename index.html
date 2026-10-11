@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[Nama Praktek] · Konsultasi dengan Psikiater</title>
+<meta name="description" content="Konsultasi dengan [Nama Dokter], Sp.KJ. Gangguan tidur, cemas, depresi, dan keluhan jiwa lainnya. Praktek di [Alamat]. Ada skrining mandiri SRQ-20 gratis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FBF7F1;
+  --cream-deep: #F4EDE3;
+  --surface: #FFFFFF;
+  --green-900: #1C4A3A;
+  --green-700: #2F7A5F;
+  --green-200: #BCDCCC;
+  --green-100: #E4F1EA;
+  --green-50:  #EFF7F2;
+  --sky-100: #DEEDF5;
+  --sky-ink: #28454F;
+  --care-bg: #FBEDE9;
+  --care-ink: #7A2E1C;
+  --ink: #253029;
+  --muted: #5A665F;
+
+  --radius-lg: 28px;
+  --radius: 20px;
+  --radius-sm: 14px;
+  --shadow: 0 1px 2px rgba(28,74,58,.04), 0 8px 24px rgba(28,74,58,.06);
+  --shadow-sm: 0 1px 2px rgba(28,74,58,.05), 0 4px 12px rgba(28,74,58,.05);
+
+  --measure: 55ch;
+  --header-h: 68px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0; padding-bottom: 92px;
+  background: var(--cream); color: var(--ink);
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1.0625rem; line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { margin: 0 0 .5em; line-height: 1.2; font-weight: 700; letter-spacing: -.02em; color: var(--green-900); }
+h1 { font-size: clamp(1.95rem, 5.6vw, 2.85rem); max-width: 18ch; }
+h2 { font-size: clamp(1.55rem, 4.2vw, 2.15rem); max-width: 22ch; }
+h3 { font-size: 1.1875rem; letter-spacing: -.01em; }
+h4 { font-size: 1.0625rem; letter-spacing: -.01em; }
+p { margin: 0 0 1.1em; max-width: var(--measure); }
+a { color: inherit; }
+svg { display: block; }
+img { display: block; max-width: 100%; }
+
+:focus-visible { outline: 3px solid var(--green-700); outline-offset: 3px; border-radius: 6px; }
+section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
+
+.container { width: 100%; max-width: 1060px; margin: 0 auto; padding: 0 20px; }
+.narrow { max-width: 720px; }
+.lead { font-size: 1.125rem; color: var(--muted); max-width: 42ch; }
+.muted { color: var(--muted); }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(251,247,241,.9); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--cream-deep);
+}
+.header-inner { display: flex; align-items: center; gap: 16px; min-height: var(--header-h); }
+.brand { display: flex; align-items: center; gap: 10px; margin-right: auto; font-weight: 700; color: var(--green-900); text-decoration: none; letter-spacing: -.01em; }
+.brand-mark { flex: none; width: 34px; height: 34px; border-radius: 11px; background: var(--green-100); display: grid; place-items: center; }
+.nav { display: none; gap: 24px; }
+.nav a { font-size: .9375rem; font-weight: 500; color: var(--muted); text-decoration: none; padding: 8px 0; }
+.nav a:hover { color: var(--green-700); }
+.header-cta { display: none; }
+
+/* ---------- Tombol ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 54px; padding: 14px 26px;
+  border: 0; border-radius: 999px;
+  font: inherit; font-weight: 600; font-size: 1rem;
+  text-decoration: none; cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+.btn-primary { background: var(--green-700); color: #fff; box-shadow: 0 2px 8px rgba(47,122,95,.28); }
+.btn-primary:hover { background: var(--green-900); transform: translateY(-1px); }
+.btn-soft { background: var(--surface); color: var(--green-900); box-shadow: var(--shadow-sm); }
+.btn-soft:hover { background: var(--green-50); transform: translateY(-1px); }
+.btn-sm { min-height: 44px; padding: 10px 20px; font-size: .9375rem; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn:active { transform: translateY(0) scale(.985); }
+
+/* ---------- Tombol tetap di HP ---------- */
+.mobile-cta {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: rgba(251,247,241,.95); backdrop-filter: blur(12px);
+  border-top: 1px solid var(--cream-deep);
+  transition: transform .25s ease, opacity .25s ease;
+}
+.mobile-cta .btn { width: 100%; }
+.mobile-cta.is-hidden { transform: translateY(110%); opacity: 0; pointer-events: none; }
+
+/* ---------- Hero ---------- */
+.hero { padding: 36px 0 8px; }
+.hero-inner { display: grid; gap: 30px; align-items: center; }
+.hero-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+.hero-art { background: var(--green-50); border-radius: var(--radius-lg); overflow: hidden; }
+
+/* Keluhan umum — kata-kata dokter sendiri */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 0; padding: 0; list-style: none; }
+.chips li {
+  padding: 8px 15px; background: var(--surface); border-radius: 999px;
+  box-shadow: var(--shadow-sm); font-size: .9375rem; font-weight: 500; color: var(--green-900);
+  line-height: 1.4;
+}
+.chips-note { margin: 14px 0 0; font-size: .9375rem; color: var(--muted); }
+
+/* ---------- Strip fakta ---------- */
+.facts { padding: 26px 0 8px; }
+.facts-card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px 24px; }
+.fact { display: flex; align-items: center; gap: 14px; padding: 16px 0; border-top: 1px solid var(--cream-deep); }
+.fact:first-child { border-top: 0; }
+.fact-ic { flex: none; width: 40px; height: 40px; border-radius: 13px; background: var(--green-100); display: grid; place-items: center; }
+.fact-label { font-size: .8125rem; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--muted); line-height: 1.4; }
+.fact-value { font-weight: 600; color: var(--green-900); line-height: 1.45; }
+.fact-value span { display: block; font-weight: 400; font-size: .9375rem; color: var(--muted); }
+
+/* ---------- Section ---------- */
+.section { padding: 52px 0; }
+.section-tint { background: var(--cream-deep); border-radius: 36px; margin: 0 12px; }
+.section-head { margin-bottom: 30px; }
+.section-head p { font-size: 1.0625rem; color: var(--muted); }
+
+
+/* ========== SKRINING KESEHATAN MENTAL ========== */
+.relate-section {
+  background: var(--cream);
+  padding: 56px 0;
+}
+
+.relate-card {
+  position: relative;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 36px;
+  background: var(--surface);
+  border: 1px solid var(--cream-deep);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.relate-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  margin-bottom: 18px;
+  background: var(--green-100);
+  border-radius: 999px;
+  color: var(--green-900);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.relate-card h2 {
+  margin-bottom: 12px;
+  color: var(--green-900);
+}
+
+.relate-intro {
+  margin-bottom: 26px;
+  color: var(--muted);
+}
+
+.relate-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.relate-item {
+  position: relative;
+  padding: 17px 18px 17px 44px;
+  background: var(--green-50);
+  border: 1px solid var(--green-100);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.relate-item::before {
+  content: "✓";
+  position: absolute;
+  top: 17px;
+  left: 17px;
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: var(--green-100);
+  color: var(--green-700);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.relate-outro {
+  margin: 26px 0 22px;
+  padding: 18px 20px;
+  background: var(--cream);
+  border-left: 4px solid var(--green-700);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.relate-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 50px;
+  padding: 13px 24px;
+  background: var(--green-700);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.relate-button:hover {
+  background: var(--green-900);
+  transform: translateY(-2px);
+}
+
+.relate-note {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+@media (max-width: 759px) {
+  .relate-section {
+    padding: 36px 0;
+  }
+
+  .relate-card {
+    padding: 24px 20px;
+    border-radius: var(--radius);
+  }
+
+  .relate-list {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .relate-item {
+    padding: 15px 15px 15px 42px;
+  }
+
+  .relate-item::before {
+    top: 16px;
+    left: 14px;
+  }
+
+  .relate-outro {
+    padding: 15px;
+  }
+
+  .relate-button {
+    width: 100%;
+  }
+}
+
+/* ================= SKRINING SRQ-20 ================= */
+.srq-card { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 28px 24px; }
+.srq-state { display: none; }
+.srq-state.is-on { display: block; }
+
+.srq-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 15px; margin-bottom: 16px;
+  background: var(--green-100); border-radius: 999px;
+  font-size: .8125rem; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; color: var(--green-900);
+}
+.srq-privacy {
+  display: flex; align-items: flex-start; gap: 11px;
+  margin: 20px 0 0; padding: 15px 18px;
+  background: var(--green-50); border-radius: var(--radius-sm);
+  font-size: .9375rem; line-height: 1.6; color: var(--muted);
+}
+.srq-privacy svg { flex: none; margin-top: 3px; }
+.srq-privacy p { margin: 0; max-width: none; }
+
+/* Pertanyaan */
+.prog { height: 7px; border-radius: 999px; background: var(--cream-deep); overflow: hidden; margin-bottom: 10px; }
+.prog-bar { height: 100%; width: 5%; border-radius: 999px; background: var(--green-700); transition: width .3s cubic-bezier(.22,.7,.3,1); }
+.prog-text { font-size: .875rem; font-weight: 600; color: var(--muted); }
+.srq-q {
+  min-height: 112px; display: flex; align-items: center;
+  margin: 22px 0 24px;
+  font-size: clamp(1.25rem, 3.8vw, 1.55rem); font-weight: 700; line-height: 1.35;
+  letter-spacing: -.02em; color: var(--green-900);
+}
+.srq-answers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.srq-ans {
+  min-height: 62px; border: 2px solid var(--cream-deep); border-radius: var(--radius-sm);
+  background: var(--cream); font: inherit; font-size: 1.0625rem; font-weight: 600; color: var(--green-900);
+  cursor: pointer; transition: border-color .15s ease, background-color .15s ease, transform .1s ease;
+}
+.srq-ans:hover { border-color: var(--green-200); background: var(--surface); }
+.srq-ans:active { transform: scale(.98); }
+.srq-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; }
+.srq-link {
+  background: none; border: 0; padding: 8px 2px;
+  font: inherit; font-size: .9375rem; font-weight: 600; color: var(--muted);
+  text-decoration: underline; text-underline-offset: 4px; cursor: pointer;
+}
+.srq-link:hover { color: var(--green-700); }
+.srq-link[hidden] { visibility: hidden; display: inline-block; }
+
+/* Hasil */
+.srq-score { font-size: clamp(1.4rem, 4vw, 1.9rem); font-weight: 700; letter-spacing: -.02em; color: var(--green-900); margin-bottom: 6px; }
+.srq-band { display: inline-block; padding: 6px 15px; border-radius: 999px; font-size: .875rem; font-weight: 700; margin-bottom: 16px; }
+.band-low { background: var(--green-100); color: var(--green-900); }
+.band-high { background: var(--sky-100); color: var(--sky-ink); }
+.srq-disclaimer { margin-top: 18px; padding: 16px 18px; background: var(--cream); border-radius: var(--radius-sm); font-size: .9375rem; line-height: 1.6; color: var(--muted); }
+.srq-disclaimer p { margin: 0; max-width: none; }
+
+/* Blok perhatian — muncul paling atas kalau item 17 dijawab Ya */
+.care {
+  margin-bottom: 22px; padding: 22px 24px;
+  background: var(--care-bg); border-radius: var(--radius); color: var(--care-ink);
+}
+.care h3 { color: var(--care-ink); margin-bottom: 8px; }
+.care p { color: var(--care-ink); margin-bottom: .8em; }
+.care p:last-child { margin-bottom: 0; }
+.care strong { font-weight: 700; }
+
+/* ---------- Dokter + slogan ---------- */
+.doctor { display: grid; gap: 28px; align-items: start; }
+.photo-ph, .map-ph {
+  display: grid; place-items: center;
+  background: var(--green-50); border: 2px dashed var(--green-200); border-radius: var(--radius-lg);
+  color: var(--muted); font-size: .9375rem; font-weight: 500; text-align: center; padding: 24px;
+}
+.photo-ph { aspect-ratio: 4/5; }
+.map-ph { aspect-ratio: 4/3; }
+.doctor-name { font-size: 1.4375rem; font-weight: 700; color: var(--green-900); margin: 0 0 2px; letter-spacing: -.02em; }
+.doctor-role { margin: 0 0 18px; color: var(--muted); }
+
+.slogans { margin: 0 0 20px; padding: 22px 24px; background: var(--green-100); border-radius: var(--radius); }
+.slogans ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+.slogans li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 1.125rem; font-weight: 700; letter-spacing: -.01em; color: var(--green-900); line-height: 1.4;
+}
+.slogans li svg { flex: none; margin-top: 6px; }
+.slogans .closing-line {
+  margin: 16px 0 0; padding-top: 16px; border-top: 1px solid var(--green-200);
+  font-size: 1rem; font-weight: 500; font-style: italic; line-height: 1.6; color: var(--green-900); max-width: none;
+}
+
+.cred { display: flex; flex-wrap: wrap; gap: 9px; margin: 20px 0 0; padding: 0; list-style: none; }
+.cred li { padding: 8px 15px; background: var(--surface); border-radius: 999px; box-shadow: var(--shadow-sm); font-size: .875rem; line-height: 1.4; }
+.cred b { color: var(--green-900); font-weight: 600; }
+
+/* ---------- Langkah ---------- */
+.steps { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; counter-reset: s; }
+.step { position: relative; padding: 22px 22px 22px 72px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.step::before {
+  counter-increment: s; content: counter(s);
+  position: absolute; left: 20px; top: 22px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--green-700); color: #fff;
+  display: grid; place-items: center; font-size: .9375rem; font-weight: 700;
+}
+.step h4 { margin-bottom: 3px; }
+.step p { margin: 0; color: var(--muted); font-size: .9875rem; max-width: none; }
+.step-cta { margin-top: 26px; padding: 26px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; }
+.step-cta p { margin: 0 auto 18px; max-width: 44ch; color: var(--muted); }
+.step-cta .btn-row { justify-content: center; }
+.step-cta .hours { display: inline-block; margin-top: 16px; font-size: .9375rem; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { display: grid; gap: 11px; }
+.faq-item { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow-sm); overflow: hidden; }
+.faq-item summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  min-height: 62px; padding: 16px 22px; font-weight: 600; cursor: pointer; list-style: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-chev { flex: none; transition: transform .2s ease; color: var(--green-700); }
+.faq-item[open] .faq-chev { transform: rotate(180deg); }
+.faq-a { padding: 0 22px 20px; }
+.faq-a p { margin: 0; color: var(--muted); }
+
+/* ---------- Lokasi ---------- */
+.loc { display: grid; gap: 24px; align-items: center; }
+.loc-card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 24px; }
+.loc-row { display: flex; gap: 13px; padding: 13px 0; border-top: 1px solid var(--cream-deep); }
+.loc-row:first-of-type { border-top: 0; padding-top: 0; }
+.loc-ic { flex: none; width: 38px; height: 38px; border-radius: 12px; background: var(--green-100); display: grid; place-items: center; }
+.loc-row div p { margin: 0; font-size: .9875rem; max-width: none; }
+.loc-row strong { display: block; color: var(--green-900); }
+
+.urgent { margin-top: 24px; background: var(--sky-100); border-radius: var(--radius); padding: 24px; color: var(--sky-ink); }
+.urgent h3 { margin-bottom: 5px; color: var(--sky-ink); }
+.urgent p { color: var(--sky-ink); }
+.urgent p:last-child { margin-bottom: 0; }
+
+.closing { text-align: center; padding: 52px 24px; background: var(--green-900); border-radius: 36px; margin: 0 12px 48px; color: #EAF4EE; }
+.closing h2 { color: #fff; margin-left: auto; margin-right: auto; }
+.closing p { margin-left: auto; margin-right: auto; color: #C3DACF; }
+.closing .btn-row { justify-content: center; margin-top: 24px; }
+.closing .btn-soft { background: #fff; color: var(--green-900); }
+
+.site-footer { padding: 24px 0 36px; font-size: .875rem; color: var(--muted); }
+.site-footer p { margin: 0; max-width: none; }
+
+/* ========== GERAK ========== */
+#boot {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
+  background: var(--cream); animation: bootOut .4s ease .32s forwards;
+}
+@keyframes bootOut { to { opacity: 0; visibility: hidden; } }
+.boot-mark { position: relative; display: grid; place-items: center; width: 96px; height: 96px; }
+.boot-ring { position: absolute; inset: 0; border-radius: 50%; background: var(--green-100); animation: breathe 2.6s ease-in-out infinite; }
+.boot-ring::after { content: ""; position: absolute; inset: 14px; border-radius: 50%; background: var(--green-200); opacity: .5; }
+.boot-mark svg { position: relative; }
+@keyframes breathe { 0%,100% { transform: scale(.74); opacity: .5; } 50% { transform: scale(1); opacity: 1; } }
+
+.js .hero-inner > * { animation: fadeUp .65s cubic-bezier(.22,.7,.3,1) .3s both; }
+.js .hero-inner > *:nth-child(2) { animation-delay: .42s; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } }
+
+.js .section-head, .js .srq-card, .js .step-cta, .js .doctor,
+.js .faq, .js .loc, .js .urgent, .js .closing {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .55s ease, transform .55s cubic-bezier(.22,.7,.3,1);
+}
+.js .facts-card > .fact, .js .steps > li, .js .chips > li {
+  opacity: 0; transform: translateY(12px);
+  transition: opacity .45s ease, transform .45s cubic-bezier(.22,.7,.3,1);
+}
+.js .in > *:nth-child(2) { transition-delay: .05s; }
+.js .in > *:nth-child(3) { transition-delay: .10s; }
+.js .in > *:nth-child(4) { transition-delay: .15s; }
+.js .in > *:nth-child(5) { transition-delay: .20s; }
+.js .in > *:nth-child(6) { transition-delay: .25s; }
+.js .in > *:nth-child(7) { transition-delay: .30s; }
+.js .in, .js .in > .fact, .js .in > li { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  :root { interpolate-size: allow-keywords; }
+  .faq-item::details-content { block-size: 0; overflow: hidden; transition: block-size .3s ease, content-visibility .3s allow-discrete; }
+  .faq-item[open]::details-content { block-size: auto; }
+  .srq-state.is-on { animation: fadeUp .35s ease both; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #boot { animation: none; opacity: 0; visibility: hidden; }
+  .boot-ring { animation: none; }
+  .js .hero-inner > * { animation: none; }
+  .js .section-head, .js .srq-card, .js .step-cta, .js .doctor, .js .faq,
+  .js .loc, .js .urgent, .js .closing,
+  .js .facts-card > .fact, .js .steps > li, .js .chips > li {
+    opacity: 1; transform: none; transition: none;
+  }
+  .btn:active, .srq-ans:active { transform: none; }
+  .prog-bar { transition: none; }
+}
+
+@media (min-width: 760px) {
+  body { padding-bottom: 0; }
+  .container { padding: 0 32px; }
+  .nav { display: flex; }
+  .header-cta { display: inline-flex; }
+  .mobile-cta { display: none; }
+  .hero { padding: 52px 0 8px; }
+  .hero-inner { grid-template-columns: 1.1fr .9fr; gap: 48px; }
+  .hero-actions { flex-direction: row; }
+  .facts { padding: 34px 0 8px; }
+  .facts-card { display: grid; grid-template-columns: repeat(4, 1fr); padding: 22px 24px; gap: 8px; }
+  .fact { border-top: 0; padding: 4px 0; }
+  .fact + .fact { border-left: 1px solid var(--cream-deep); padding-left: 22px; }
+  .section { padding: 72px 0; }
+  .section-tint { margin: 0 20px; }
+  .srq-card { padding: 36px 40px; }
+  .doctor { grid-template-columns: .8fr 1.2fr; gap: 44px; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .loc { grid-template-columns: 1fr 1fr; gap: 36px; }
+  .closing { margin: 0 20px 64px; padding: 68px 40px; }
+}
+</style>
+<script>if ('IntersectionObserver' in window) document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<div id="boot" aria-hidden="true">
+  <div class="boot-mark">
+    <span class="boot-ring"></span>
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1C4A3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 20s-7-4.6-7-9.4A4.6 4.6 0 0 1 12 7a4.6 4.6 0 0 1 7 3.6C19 15.4 12 20 12 20z"/>
+    </svg>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.6-7-9.4A4.6 4.6 0 0 1 12 7a4.6 4.6 0 0 1 7 3.6C19 15.4 12 20 12 20z"/></svg>
+      </span>
+      [Nama Praktek]
+    </a>
+    <nav class="nav" aria-label="Navigasi utama">
+      <a href="#skrining">Skrining</a>
+      <a href="#dokter">Tentang Dokter</a>
+      <a href="#alur">Cara Konsultasi</a>
+      <a href="#faq">Tanya Jawab</a>
+      <a href="#lokasi">Lokasi</a>
+    </nav>
+    <a class="btn btn-primary btn-sm header-cta" href="reservasi.html">Buat janji</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ========== 1. HERO — keluhan umum ========== -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <h1>Jika kamu mengalami salah satu dari ini</h1>
+
+      <ul class="chips">
+        <li>Gangguan tidur</li>
+        <li>Cemas</li>
+        <li>Depresi</li>
+        <li>Mood swing</li>
+        <li>Gangguan emosi</li>
+        <li>Insecure</li>
+        <li>Putus asa</li>
+        <li>Bingung</li>
+        <li>Perilaku aneh</li>
+        <li>Pikun</li>
+      </ul>
+
+      <p class="chips-note">Kamu bisa membicarakannya dengan [Nama Dokter], Sp.KJ — dokter spesialis kedokteran jiwa di [Nama Jalan], [Kota].</p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="reservasi.html">
+          Buat janji temu
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-soft" href="#skrining">Coba skrining dulu</a>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <svg viewBox="0 0 420 340" role="img" aria-label="Ilustrasi dua kursi berhadapan di ruang praktek">
+        <rect width="420" height="340" fill="#EFF7F2"/>
+        <path d="M168 44h84a42 42 0 0 1 42 42v94H126V86a42 42 0 0 1 42-42z" fill="#DEEDF5"/>
+        <path d="M210 44v136" stroke="#C5DEEC" stroke-width="5"/>
+        <path d="M126 122h168" stroke="#C5DEEC" stroke-width="5"/>
+        <ellipse cx="210" cy="276" rx="158" ry="30" fill="#E4F1EA"/>
+        <rect x="64" y="166" width="26" height="78" rx="13" fill="#2F7A5F"/>
+        <rect x="76" y="222" width="84" height="24" rx="12" fill="#3B8E70"/>
+        <rect x="88" y="244" width="9" height="30" rx="4.5" fill="#1C4A3A"/>
+        <rect x="142" y="244" width="9" height="30" rx="4.5" fill="#1C4A3A"/>
+        <rect x="96" y="204" width="34" height="20" rx="10" fill="#BCDCCC"/>
+        <rect x="330" y="166" width="26" height="78" rx="13" fill="#5FA98B"/>
+        <rect x="260" y="222" width="84" height="24" rx="12" fill="#74BB9D"/>
+        <rect x="269" y="244" width="9" height="30" rx="4.5" fill="#2F7A5F"/>
+        <rect x="323" y="244" width="9" height="30" rx="4.5" fill="#2F7A5F"/>
+        <rect x="290" y="204" width="34" height="20" rx="10" fill="#BCDCCC"/>
+        <rect x="190" y="214" width="42" height="8" rx="4" fill="#C9D9CE"/>
+        <rect x="207" y="222" width="8" height="30" rx="4" fill="#C9D9CE"/>
+        <rect x="196" y="186" width="30" height="30" rx="9" fill="#BCDCCC"/>
+        <path d="M211 186c0-14 9-22 20-24-1 14-8 22-20 24z" fill="#5FA98B"/>
+        <path d="M211 186c0-12-8-20-19-22 1 13 8 20 19 22z" fill="#3B8E70"/>
+        <circle cx="366" cy="96" r="16" fill="#F4EDE3"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 2. EMPAT FAKTA ========== -->
+<section class="facts">
+  <div class="container">
+    <div class="facts-card">
+      <div class="fact">
+        <span class="fact-ic" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
+        <div><div class="fact-label">Jam praktek</div><div class="fact-value">[Senin–Jumat]<span>[16.00–19.00]</span></div></div>
+      </div>
+      <div class="fact">
+        <span class="fact-ic" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        <div><div class="fact-label">Lokasi</div><div class="fact-value">[Nama Jalan]<span>[dekat patokan]</span></div></div>
+      </div>
+      <div class="fact">
+        <span class="fact-ic" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="3"/><circle cx="12" cy="12" r="2.6"/></svg></span>
+        <div><div class="fact-label">Biaya konsultasi</div><div class="fact-value">Rp [xxx.xxx]<span>[obat terpisah]</span></div></div>
+      </div>
+      <div class="fact">
+        <span class="fact-ic" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3.2-6.9"/><path d="M21 4v5h-5"/></svg></span>
+        <div><div class="fact-label">Lama sesi</div><div class="fact-value">[xx] menit<span>[perlu janji dulu]</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 3. SKRINING SRQ-20 ========== -->
+<section class="section relate-section" id="relate" aria-labelledby="relate-title">
+  <div class="container">
+    <div class="relate-card reveal">
+      <span class="relate-badge">Kenali dirimu</span>
+
+      <h2 id="relate-title">Skrining Kesehatan Mentalmu</h2>
+
+      <p class="relate-intro">
+        Yuk, cek kesehatan mentalmu dan kenali apa yang sedang kamu rasakan.
+      </p>
+
+      <ul class="relate-list">
+        <li class="relate-item">Sudah berminggu-minggu sulit tidur, atau tidur lama tapi bangun tetap capek.</li>
+        <li class="relate-item">Hal yang dulu kamu suka sekarang terasa hambar.</li>
+        <li class="relate-item">Pikiran tentang banyak hal terus muncul dan sulit berhenti, bahkan saat kamu sedang mencoba beristirahat.</li>
+        <li class="relate-item">Pekerjaan, kuliah, atau hubungan dengan orang terdekat mulai terasa lebih berat dari biasanya.</li>
+        <li class="relate-item">Kamu capek menjalani hari dan tidak tahu harus cerita ke siapa.</li>
+        <li class="relate-item">Orang terdekatmu mulai bilang kamu berubah.</li>
+      </ul>
+
+      <p class="relate-outro">
+        Kalau beberapa hal di atas terasa dekat dengan keadaanmu, itu sudah cukup jadi alasan untuk bicara dengan dokter.
+        Kamu tidak perlu tahu dulu apa namanya.
+      </p>
+
+      <a href="skreening.html" class="relate-button">
+        Mulai skrining <span aria-hidden="true">→</span>
+      </a>
+
+      <p class="relate-note">Skrining ini bukan pengganti diagnosis dari dokter.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 4. DOKTER + SLOGAN ========== -->
+<section class="section section-tint" id="dokter">
+  <div class="container">
+    <div class="section-head"><h2>Kenalan dulu</h2></div>
+
+    <div class="doctor">
+      <div class="photo-ph">[FOTO DOKTER]<br><span style="font-size:.8125rem">potret santai, bukan pas foto</span></div>
+      <div>
+        <p class="doctor-name">[Nama Dokter], Sp.KJ</p>
+        <p class="doctor-role">Dokter spesialis kedokteran jiwa</p>
+
+        <div class="slogans">
+          <ul>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Bahagia Itu Sederhana</li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Enjoy Your Life</li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Love Your Life</li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Love Yourself</li>
+          </ul>
+          <p class="closing-line">“Yang penting berusaha dengan sepenuh raga, berdoa sepenuh jiwa, hasilnya pasrahkan pada Tuhan.”</p>
+        </div>
+
+        <p>[Paragraf tentang cara dokter menangani pasien: sesi pertama berjalan seperti apa, kapan obat dipertimbangkan. Sebaiknya ditulis atau minimal disetujui dokter sendiri.]</p>
+
+        <ul class="cred">
+          <li><b>Pendidikan</b> · [Universitas, tahun]</li>
+          <li><b>STR</b> · [Nomor]</li>
+          <li><b>SIP</b> · [Nomor]</li>
+          <li><b>Praktek sejak</b> · [Tahun]</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 5. ALUR + AJAKAN ========== -->
+<section class="section" id="alur">
+  <div class="container">
+    <div class="section-head">
+      <h2>Begini jalannya</h2>
+      <p>Supaya kamu tahu apa yang akan terjadi sebelum memutuskan datang.</p>
+    </div>
+
+    <ol class="steps">
+      <li class="step"><h4>Pilih jadwal</h4><p>Isi nama, nomor WhatsApp, dan jam yang kamu mau. Nggak perlu cerita keluhan di situ.</p></li>
+      <li class="step"><h4>Admin menghubungi</h4><p>Admin mengonfirmasi jadwalnya lewat WhatsApp, dan menanyakan keluhanmu singkat saja supaya dokter siap.</p></li>
+      <li class="step"><h4>Hari konsultasi</h4><p>Kamu cerita, dokter bertanya dan mendengarkan. Sekitar [xx] menit. Boleh cerita sebanyak yang kamu nyaman.</p></li>
+      <li class="step"><h4>Rencana dan kontrol</h4><p>Dokter menjelaskan pilihan perawatannya, lalu kalian sepakati kapan kontrol berikutnya.</p></li>
+    </ol>
+
+    <div class="step-cta">
+      <p>Kalau sudah terasa masuk akal, langkah pertamanya cuma mengisi empat kolom.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="reservasi.html">Buat janji temu</a>
+        <a class="btn btn-soft" href="https://wa.me/[NOMOR_ADMIN]?text=Halo%2C%20saya%20mau%20tanya%20dulu." target="_blank" rel="noopener">Tanya admin dulu</a>
+      </div>
+      <span class="hours">Praktek [Senin–Jumat] · [16.00–19.00]</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 6. FAQ ========== -->
+<section class="section section-tint" id="faq">
+  <div class="container narrow">
+    <div class="section-head"><h2>Yang sering ditanyakan</h2></div>
+
+    <div class="faq">
+      <details class="faq-item">
+        <summary>Hasil skriningnya berarti aku sakit?
+          <svg class="faq-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="faq-a"><p>Nggak. Skrining cuma menunjukkan ada berapa keluhan yang kamu rasakan belakangan ini. Yang bisa menilai kondisimu cuma dokter, lewat pemeriksaan langsung. Skrining ini gunanya supaya kamu punya gambaran dan lebih gampang bercerita.</p></div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Aku bingung mau cerita apa nanti.
+          <svg class="faq-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="faq-a"><p>Wajar, dan nggak masalah. Dokter yang akan menuntun dengan pertanyaan. Kamu cukup jawab apa adanya, dan boleh bilang kalau ada yang belum mau diceritakan.</p></div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Apa aku pasti dikasih obat?
+          <svg class="faq-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="faq-a"><p>Nggak selalu. Dokter mempertimbangkannya berdasarkan kondisimu, lalu menjelaskan alasan, manfaat, dan efek sampingnya sebelum kamu memutuskan. Kalau kamu khawatir soal obat, bilang aja waktu konsultasi.</p></div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Ceritaku aman nggak?
+          <svg class="faq-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="faq-a"><p>[Penjelasan kerahasiaan pasien — tolong ditulis atau disetujui dokter, termasuk batasannya kalau ada.]</p></div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Bisa pakai BPJS?
+          <svg class="faq-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="faq-a"><p>[Ya atau tidak di praktek ini. Kalau ya, jelaskan alur rujukannya.]</p></div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Boleh ditemani keluarga?
+          <svg class="faq-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="faq-a"><p>[Jawaban dokter.]</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 7. LOKASI ========== -->
+<section class="section" id="lokasi">
+  <div class="container">
+    <div class="section-head"><h2>Tempatnya di sini</h2></div>
+
+    <div class="loc">
+      <div class="map-ph">[PETA / FOTO TAMPAK DEPAN]<br><span style="font-size:.8125rem">foto bangunan dari jalan bikin pasien baru nggak nyasar</span></div>
+
+      <div class="loc-card">
+        <div class="loc-row">
+          <span class="loc-ic" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <div><p><strong>[Nama Praktek]</strong></p><p class="muted">[Alamat lengkap], [Kota]<br>Patokan: [bangunan terdekat]</p></div>
+        </div>
+        <div class="loc-row">
+          <span class="loc-ic" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></span>
+          <div><p><strong>Jam praktek</strong></p><p class="muted">[Hari] · [jam]<br>[Hari] · [jam]</p></div>
+        </div>
+        <div class="loc-row">
+          <span class="loc-ic" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="3"/><path d="M7 19v2M17 19v2M6 10h4"/></svg></span>
+          <div><p><strong>Parkir</strong></p><p class="muted">[Keterangan parkir]</p></div>
+        </div>
+        <div style="margin-top:18px" class="btn-row">
+          <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=[ALAMAT]" target="_blank" rel="noopener">Buka di Maps</a>
+          <a class="btn btn-soft btn-sm" href="https://wa.me/[NOMOR_ADMIN]?text=Halo%2C%20saya%20mau%20tanya%20soal%20konsultasi." target="_blank" rel="noopener">Tanya admin</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="urgent">
+      <h3>Kalau situasinya nggak bisa menunggu</h3>
+      <p>Praktek ini buka sesuai jam di atas. Kalau kamu atau orang terdekatmu butuh pertolongan segera di luar jam itu, hubungi [LAYANAN RUJUKAN DARURAT — diisi dokter] atau datang ke IGD terdekat.</p>
+      <p style="font-size:.875rem"><em>Catatan untuk dokter: tolong isi bagian ini sendiri. Teks yang sama juga dipakai di hasil skrining, jadi harus akurat dan masih aktif.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 8. PENUTUP ========== -->
+<div class="closing" id="penutup">
+  <h2>Langkah pertamanya cuma satu klik</h2>
+  <p>Isi empat kolom, admin yang urus sisanya. Kalau masih ragu, boleh tanya-tanya dulu tanpa harus langsung bikin janji.</p>
+  <div class="btn-row">
+    <a class="btn btn-soft" href="reservasi.html">Buat janji temu</a>
+    <a class="btn btn-soft" href="https://wa.me/[NOMOR_ADMIN]?text=Halo%2C%20saya%20mau%20tanya%20dulu." target="_blank" rel="noopener">Tanya dulu aja</a>
+  </div>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© [Tahun] [Nama Praktek] · [Nama Dokter], Sp.KJ · SIP [Nomor]</p>
+  </div>
+</footer>
+
+<div class="mobile-cta" id="mobile-cta">
+  <a class="btn btn-primary" href="reservasi.html">Buat janji temu</a>
+</div>
+
+<script>
+/* =====================================================================
+   SKRINING SRQ-20
+   Semua perhitungan jalan di browser. Tidak ada fetch, tidak ada
+   localStorage, tidak ada yang dikirim. JANGAN DIUBAH waktu produksi —
+   begitu jawaban disimpan, ini jadi data kesehatan dan tanggung
+   jawabnya pindah ke sistem kita.
+   ===================================================================== */
+(function () {
+  var PERTANYAAN = [
+    'Apakah kamu sering menderita sakit kepala?',
+    'Apakah kamu tidak nafsu makan?',
+    'Apakah kamu sulit tidur?',
+    'Apakah kamu mudah takut?',
+    'Apakah kamu merasa tegang, cemas, atau khawatir?',
+    'Apakah tangan kamu gemetar?',
+    'Apakah pencernaan kamu terganggu atau buruk?',
+    'Apakah kamu sulit untuk berpikir jernih?',
+    'Apakah kamu merasa tidak bahagia?',
+    'Apakah kamu menangis lebih sering?',
+    'Apakah kamu sulit untuk menikmati kegiatan sehari-hari?',
+    'Apakah kamu sulit untuk mengambil keputusan?',
+    'Apakah pekerjaan kamu sehari-hari terganggu?',
+    'Apakah kamu tidak mampu melakukan hal-hal yang bermanfaat dalam hidup?',
+    'Apakah kamu kehilangan minat pada berbagai hal?',
+    'Apakah kamu merasa tidak berharga?',
+    'Apakah kamu mempunyai pikiran untuk mengakhiri hidup?',
+    'Apakah kamu merasa lelah sepanjang waktu?',
+    'Apakah kamu mengalami rasa tidak enak di perut?',
+    'Apakah kamu mudah lelah?'
+  ];
+
+  /* Ambang batas. 6 adalah angka yang umum dipakai di Indonesia,
+     TAPI harus dikonfirmasi dokter sebelum halaman ini tayang. */
+  var AMBANG = 6;
+
+  /* Nomor urut pertanyaan risiko (1-based). Kalau dijawab Ya,
+     blok rujukan darurat muncul paling atas di hasil. */
+  var ITEM_RISIKO = 17;
+
+  var intro  = document.getElementById('srq-intro');
+  var quiz   = document.getElementById('srq-quiz');
+  var result = document.getElementById('srq-result');
+  if (!intro) return;
+
+  var elQ    = document.getElementById('srq-question');
+  var elBar  = document.getElementById('prog-bar');
+  var elProg = document.getElementById('prog-text');
+  var elBack = document.getElementById('srq-back');
+  var elCare = document.getElementById('srq-care');
+  var elScore= document.getElementById('srq-score');
+  var elBand = document.getElementById('srq-band');
+  var elText = document.getElementById('srq-text');
+
+  var i = 0;
+  var jawaban = [];
+
+  function tampil(el) {
+    [intro, quiz, result].forEach(function (s) { s.classList.remove('is-on'); });
+    el.classList.add('is-on');
+  }
+
+  function gambarPertanyaan() {
+    elQ.textContent = PERTANYAAN[i];
+    elProg.textContent = 'Pertanyaan ' + (i + 1) + ' dari ' + PERTANYAAN.length;
+    elBar.style.width = (((i + 1) / PERTANYAAN.length) * 100) + '%';
+    elBack.hidden = (i === 0);
+  }
+
+  function selesai() {
+    var skor = jawaban.reduce(function (a, b) { return a + b; }, 0);
+    var risiko = jawaban[ITEM_RISIKO - 1] === 1;
+
+    elCare.hidden = !risiko;
+    elScore.textContent = 'Kamu menandai ' + skor + ' dari 20 pertanyaan.';
+
+    if (skor >= AMBANG) {
+      elBand.className = 'srq-band band-high';
+      elBand.textContent = 'Beberapa keluhan menonjol';
+      elText.textContent = 'Cukup banyak hal yang kamu rasakan belakangan ini. Ini bukan diagnosis, tapi sudah cukup jadi alasan untuk duduk dan membicarakannya dengan dokter.';
+    } else {
+      elBand.className = 'srq-band band-low';
+      elBand.textContent = 'Keluhan tidak banyak';
+      elText.textContent = 'Keluhannya tidak banyak. Tapi kalau ada satu dua hal yang tetap mengganggu keseharianmu, itu tetap boleh dibicarakan — nggak perlu menunggu sampai banyak.';
+    }
+
+    tampil(result);
+    document.getElementById('skrining').scrollIntoView({ block: 'start' });
+  }
+
+  document.getElementById('srq-start').addEventListener('click', function () {
+    i = 0; jawaban = [];
+    gambarPertanyaan();
+    tampil(quiz);
+  });
+
+  document.querySelectorAll('.srq-ans').forEach(function (b) {
+    b.addEventListener('click', function () {
+      jawaban[i] = Number(b.getAttribute('data-ans'));
+      if (i < PERTANYAAN.length - 1) { i++; gambarPertanyaan(); }
+      else { selesai(); }
+    });
+  });
+
+  elBack.addEventListener('click', function () {
+    if (i > 0) { i--; gambarPertanyaan(); }
+  });
+
+  document.getElementById('srq-quit').addEventListener('click', function () {
+    i = 0; jawaban = [];
+    tampil(intro);
+  });
+
+  document.getElementById('srq-again').addEventListener('click', function () {
+    i = 0; jawaban = [];
+    elCare.hidden = true;
+    tampil(intro);
+  });
+})();
+
+/* ===================== Gerak & tombol tetap ===================== */
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+
+  var bar = document.getElementById('mobile-cta');
+  var closing = document.getElementById('penutup');
+  new IntersectionObserver(function (entries) {
+    bar.classList.toggle('is-hidden', entries[0].isIntersecting);
+  }, { threshold: 0.25 }).observe(closing);
+
+  var targets = document.querySelectorAll(
+    '.section-head, .facts-card, .chips, .srq-card, .steps, .step-cta, ' +
+    '.doctor, .faq, .loc, .urgent, .closing'
+  );
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  targets.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+</body>
+</html>
