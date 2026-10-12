@@ -350,7 +350,6 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
 .care strong { font-weight: 700; }
 
 /* ---------- Dokter + slogan ---------- */
-.doctor { display: grid; gap: 28px; align-items: start; }
 .photo-ph, .map-ph {
   display: grid; place-items: center;
   background: var(--green-50); border: 2px dashed var(--green-200); border-radius: var(--radius-lg);
@@ -358,24 +357,59 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
 }
 .photo-ph { aspect-ratio: 4/5; }
 .map-ph { aspect-ratio: 4/3; }
-.doctor-name { font-size: 1.4375rem; font-weight: 700; color: var(--green-900); margin: 0 0 2px; letter-spacing: -.02em; }
-.doctor-role { margin: 0 0 18px; color: var(--muted); }
-
-.slogans { margin: 0 0 20px; padding: 22px 24px; background: var(--green-100); border-radius: var(--radius); }
-.slogans ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; }
-.slogans li {
-  display: flex; align-items: flex-start; gap: 10px;
-  font-size: 1.125rem; font-weight: 700; letter-spacing: -.01em; color: var(--green-900); line-height: 1.4;
+/* "Ruang dokter": satu-satunya section gelap di halaman, seperti masuk dari lorong terang ke ruang praktek.
+   Nama dokter jadi teks terbesar; kredensial strip terang; tanya jawab interaktif. */
+.doctor-room { background: var(--green-900); color: var(--cream); }
+.doctor-room h2 { margin: 0 0 6px; font-size: 1.125rem; font-weight: 600; letter-spacing: -.01em; color: var(--green-200); }
+.doctor { display: grid; gap: 24px; grid-template-areas: "top" "photo" "bottom"; }
+.doctor-top { grid-area: top; }
+.doctor-bottom { grid-area: bottom; }
+.doctor-photo { grid-area: photo; }
+.doctor-room .photo-ph {
+  background: rgba(251,247,241,.06); border-color: rgba(188,220,204,.35); color: var(--green-200);
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,.35);
 }
-.slogans li svg { flex: none; margin-top: 6px; }
-.slogans .closing-line {
-  margin: 16px 0 0; padding-top: 16px; border-top: 1px solid var(--green-200);
-  font-size: 1rem; font-weight: 500; font-style: italic; line-height: 1.6; color: var(--green-900); max-width: none;
-}
+.doctor-name { margin: 0; font-size: clamp(2.1rem, 7vw, 3.6rem); font-weight: 700; line-height: 1.04; letter-spacing: -.035em; color: #fff; max-width: none; }
+.doctor-name span { display: block; font-weight: 500; color: var(--green-200); }
+.doctor-role { margin: 14px 0 0; font-size: 1rem; color: var(--green-200); }
 
-.cred { display: flex; flex-wrap: wrap; gap: 9px; margin: 20px 0 0; padding: 0; list-style: none; }
-.cred li { padding: 8px 15px; background: var(--surface); border-radius: 999px; box-shadow: var(--shadow-sm); font-size: .875rem; line-height: 1.4; }
-.cred b { color: var(--green-900); font-weight: 600; }
+.motto { margin: 0 0 24px; padding: 0; }
+.motto blockquote { margin: 0; }
+.motto blockquote p { margin: 0; max-width: 30ch; font-size: clamp(1.2rem, 2.6vw, 1.45rem); font-weight: 500; line-height: 1.45; letter-spacing: -.01em; color: var(--cream); }
+.motto blockquote p::before { content: "“"; display: block; height: .5em; font-size: 2.6em; line-height: 1; color: var(--green-200); }
+/* Kutip tutup menempel di ujung kalimat terakhir; line-height 0 supaya tidak menambah tinggi baris */
+.motto blockquote p::after { content: "”"; margin-left: .06em; font-size: 2em; line-height: 0; vertical-align: -.38em; color: var(--green-200); }
+
+/* Pegangan dokter: ukuran chip tetap kecil, menonjol lewat kontras (hijau muda solid di atas hijau tua) */
+.slogans { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.slogans li { padding: 8px 15px; border-radius: var(--radius-sm); background: var(--green-200); font-weight: 700; font-size: .9375rem; line-height: 1.4; color: var(--green-900); }
+
+/* Kredensial: strip terang di atas hijau tua, dibaca seperti kartu izin praktek */
+.cred {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px; margin: 44px 0 0; padding: 22px 24px;
+  background: var(--cream); color: var(--green-900); border-radius: var(--radius);
+}
+.cred div { min-width: 0; }
+.cred dt { font-size: .875rem; color: var(--muted); line-height: 1.4; }
+.cred dd { margin: 2px 0 0; font-weight: 700; color: var(--green-900); line-height: 1.45; overflow-wrap: anywhere; }
+
+/* Tanya jawab: pilih pertanyaan, jawaban dokter tampil besar di panel */
+.qa { display: grid; gap: 14px; margin: 32px 0 0; }
+.qa-tabs { display: grid; gap: 6px; }
+.qa-tab {
+  display: block; width: 100%; padding: 14px 18px; border: 0; border-radius: var(--radius-sm);
+  background: transparent; color: rgba(251,247,241,.62); text-align: left; cursor: pointer;
+  font: inherit; font-size: 1.0625rem; font-weight: 600; line-height: 1.4;
+  transition: background-color .2s ease, color .2s ease;
+}
+.qa-tab:hover { color: var(--cream); }
+.qa-tab[aria-selected="true"] { background: rgba(251,247,241,.09); color: #fff; }
+.qa-panel { padding: 26px 28px; background: var(--green-700); border-radius: var(--radius); color: #fff; }
+.qa-panel p { margin: 0; max-width: 40ch; font-size: clamp(1.15rem, 2.2vw, 1.375rem); line-height: 1.55; letter-spacing: -.01em; }
+.doctor-room :focus-visible { outline-color: var(--green-200); }
+@media (prefers-reduced-motion: no-preference) {
+  .qa-panel:not([hidden]) { animation: fadeUp .35s ease both; }
+}
 
 /* ---------- Langkah ---------- */
 .steps { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; counter-reset: s; }
@@ -499,7 +533,13 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
   .section { padding: 72px 0; }
   .section-tint { margin: 0 20px; }
   .srq-card { padding: 36px 40px; }
-  .doctor { grid-template-columns: .8fr 1.2fr; gap: 44px; }
+  .doctor {
+    grid-template-columns: 1.15fr .85fr; grid-template-areas: "top photo" "bottom photo";
+    grid-template-rows: auto 1fr; column-gap: 56px; row-gap: 28px;
+  }
+  .cred { grid-template-columns: repeat(4, 1fr); padding: 22px 28px; }
+  .cred div + div { border-left: 1px solid var(--cream-deep); padding-left: 22px; }
+  .qa { grid-template-columns: .9fr 1.1fr; gap: 28px; align-items: start; }
   .steps { grid-template-columns: 1fr 1fr; }
   .loc { grid-template-columns: 1fr 1fr; gap: 36px; }
   .closing { margin: 0 20px 64px; padding: 68px 40px; }
@@ -657,35 +697,50 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
 </section>
 
 <!-- ========== 4. DOKTER + SLOGAN ========== -->
-<section class="section section-tint" id="dokter">
+<section class="section section-tint doctor-room" id="dokter">
   <div class="container">
-    <div class="section-head"><h2>Kenalan dulu</h2></div>
-
     <div class="doctor">
-      <div class="photo-ph">[FOTO DOKTER]<br><span style="font-size:.8125rem">potret santai, bukan pas foto</span></div>
-      <div>
-        <p class="doctor-name">[Nama Dokter], Sp.KJ</p>
+      <div class="doctor-top">
+        <h2>Kenalan dulu</h2>
+        <p class="doctor-name">[Nama Dokter],<span>Sp.KJ</span></p>
         <p class="doctor-role">Dokter spesialis kedokteran jiwa</p>
+      </div>
 
-        <div class="slogans">
-          <ul>
-            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Bahagia Itu Sederhana</li>
-            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Enjoy Your Life</li>
-            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Love Your Life</li>
-            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2F7A5F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Love Yourself</li>
-          </ul>
-          <p class="closing-line">“Yang penting berusaha dengan sepenuh raga, berdoa sepenuh jiwa, hasilnya pasrahkan pada Tuhan.”</p>
-        </div>
+      <div class="doctor-photo">
+        <div class="photo-ph">[FOTO DOKTER]<br><span style="font-size:.8125rem">potret santai, bukan pas foto</span></div>
+      </div>
 
-        <p>[Paragraf tentang cara dokter menangani pasien: sesi pertama berjalan seperti apa, kapan obat dipertimbangkan. Sebaiknya ditulis atau minimal disetujui dokter sendiri.]</p>
+      <div class="doctor-bottom">
+        <figure class="motto">
+          <blockquote><p>Yang penting berusaha dengan sepenuh raga, berdoa sepenuh jiwa, hasilnya pasrahkan pada Tuhan.</p></blockquote>
+        </figure>
 
-        <ul class="cred">
-          <li><b>Pendidikan</b> · [Universitas, tahun]</li>
-          <li><b>STR</b> · [Nomor]</li>
-          <li><b>SIP</b> · [Nomor]</li>
-          <li><b>Praktek sejak</b> · [Tahun]</li>
+        <ul class="slogans" aria-label="Pegangan dokter">
+          <li>Bahagia itu sederhana</li>
+          <li>Enjoy your life</li>
+          <li>Love your life</li>
+          <li>Love yourself</li>
         </ul>
       </div>
+    </div>
+
+    <dl class="cred">
+      <div><dt>Pendidikan</dt><dd>[Universitas, tahun]</dd></div>
+      <div><dt>Praktek sejak</dt><dd>[Tahun]</dd></div>
+      <div><dt>STR</dt><dd>[Nomor]</dd></div>
+      <div><dt>SIP</dt><dd>[Nomor]</dd></div>
+    </dl>
+
+    <!-- Jawaban wajib ditulis dokter sendiri, pakai "saya". Pertanyaan soal obat & bingung mulai cerita sudah ada di FAQ. -->
+    <div class="qa">
+      <div class="qa-tabs" role="tablist" aria-label="Tanya jawab dengan dokter">
+        <button class="qa-tab" role="tab" id="qa-t1" aria-controls="qa-p1" aria-selected="true">Kenapa dokter memilih jadi psikiater?</button>
+        <button class="qa-tab" role="tab" id="qa-t2" aria-controls="qa-p2" aria-selected="false" tabindex="-1">Seperti apa pertemuan pertama dengan dokter?</button>
+        <button class="qa-tab" role="tab" id="qa-t3" aria-controls="qa-p3" aria-selected="false" tabindex="-1">Apa yang paling sering disalahpahami orang soal ke psikiater?</button>
+      </div>
+      <div class="qa-panel" role="tabpanel" id="qa-p1" aria-labelledby="qa-t1"><p>[Jawaban dokter, 2–3 kalimat, dengan kata-katanya sendiri.]</p></div>
+      <div class="qa-panel" role="tabpanel" id="qa-p2" aria-labelledby="qa-t2" hidden><p>[Berapa lama, apa yang biasanya ditanyakan, apa yang boleh belum diceritakan.]</p></div>
+      <div class="qa-panel" role="tabpanel" id="qa-p3" aria-labelledby="qa-t3" hidden><p>[Jawaban dokter.]</p></div>
     </div>
   </div>
 </section>
@@ -967,6 +1022,31 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   targets.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+<script>
+// Tab tanya jawab dokter: klik atau panah kiri/kanan/atas/bawah
+(function () {
+  var tabs = [].slice.call(document.querySelectorAll('.qa-tab'));
+  function select(tab) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(t); });
+    t.addEventListener('keydown', function (e) {
+      var d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+      if (!d) return;
+      e.preventDefault();
+      var next = tabs[(i + d + tabs.length) % tabs.length];
+      select(next); next.focus();
+    });
+  });
 })();
 </script>
 
