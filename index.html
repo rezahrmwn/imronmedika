@@ -565,7 +565,10 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
   .cred { grid-template-columns: repeat(4, 1fr); padding: 22px 28px; }
   .cred div + div { border-left: 1px solid var(--cream-deep); padding-left: 22px; }
   .qa { grid-template-columns: .9fr 1.1fr; gap: 28px; align-items: start; }
-  .step-cta { grid-template-columns: 1.5fr 1fr; align-items: center; gap: 40px; padding: 36px 40px; }
+  /* Jam praktek di pojok kanan atas, tombol turun sejajar baris kolom terakhir */
+  .step-cta { grid-template-columns: 1.5fr 1fr; gap: 40px; padding: 36px 40px; }
+  .cta-actions { display: flex; flex-direction: column; justify-content: space-between; gap: 16px; }
+  .step-cta .hours { order: -1; margin-top: 0; text-align: right; }
   .steps { --dot: 64px; grid-template-columns: repeat(4, 1fr); column-gap: 28px; }
   .step { padding: calc(var(--dot) + 22px) 0 0; text-align: center; }
   .step:last-child { padding-bottom: 0; }
