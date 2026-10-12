@@ -412,21 +412,45 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
 }
 
 /* ---------- Langkah ---------- */
-.steps { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; counter-reset: s; }
-.step { position: relative; padding: 22px 22px 22px 72px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
-.step::before {
-  counter-increment: s; content: counter(s);
-  position: absolute; left: 20px; top: 22px;
-  width: 36px; height: 36px; border-radius: 50%;
-  background: var(--green-700); color: #fff;
-  display: grid; place-items: center; font-size: .9375rem; font-weight: 700;
+/* Timeline: lingkaran ikon + garis penghubung (vertikal di HP, horizontal & center di desktop).
+   Lingkaran 1 solid karena itu satu-satunya langkah yang dikerjakan pengunjung sekarang. */
+.steps { --dot: 52px; display: grid; margin: 0; padding: 0; list-style: none; }
+.step { position: relative; padding: 0 0 32px calc(var(--dot) + 20px); }
+.step:last-child { padding-bottom: 0; }
+.step-dot {
+  position: absolute; z-index: 1; left: 0; top: 0;
+  width: var(--dot); height: var(--dot); border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--cream); border: 2px solid var(--green-200); color: var(--green-700);
 }
-.step h4 { margin-bottom: 3px; }
+.step:first-child .step-dot { background: var(--green-700); border-color: var(--green-700); color: #fff; box-shadow: 0 0 0 6px var(--green-100); }
+.step::after { content: ""; position: absolute; left: calc(var(--dot) / 2 - 1px); top: var(--dot); bottom: 0; width: 2px; background: var(--green-200); }
+.step:last-child::after { display: none; }
+.step h4 { margin: 12px 0 0; }
+.step-where { display: block; margin: 2px 0 6px; font-size: .875rem; font-weight: 600; color: var(--green-700); }
 .step p { margin: 0; color: var(--muted); font-size: .9875rem; max-width: none; }
-.step-cta { margin-top: 26px; padding: 26px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; }
-.step-cta p { margin: 0 auto 18px; max-width: 44ch; color: var(--muted); }
-.step-cta .btn-row { justify-content: center; }
-.step-cta .hours { display: inline-block; margin-top: 16px; font-size: .9375rem; color: var(--muted); }
+
+/* Garis tergambar sekali saat section masuk layar */
+.js .steps > li::after { transform: scale(0); transform-origin: 0 0; transition: transform .6s cubic-bezier(.22,.7,.3,1); }
+.js .steps.in > li::after { transform: none; }
+.js .steps.in > li:nth-child(1)::after { transition-delay: .2s; }
+.js .steps.in > li:nth-child(2)::after { transition-delay: .45s; }
+.js .steps.in > li:nth-child(3)::after { transition-delay: .7s; }
+
+/* Ajakan: "empat kolom" ditunjukkan langsung (pratinjau formulir reservasi.html), bukan cuma disebut */
+.step-cta { display: grid; gap: 24px; margin-top: 44px; padding: 26px; background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+.step-cta p { margin: 0 0 16px; max-width: 34ch; font-size: 1.125rem; font-weight: 600; line-height: 1.5; color: var(--green-900); }
+.form-peek { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; color: inherit; text-decoration: none; }
+.peek-label { display: block; margin-bottom: 4px; font-size: .8125rem; font-weight: 600; line-height: 1.3; color: var(--green-900); }
+.peek-input {
+  display: block; padding: 10px 12px; border: 1.5px solid var(--cream-deep); border-radius: 10px; background: var(--cream);
+  font-size: .875rem; line-height: 1.4; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  transition: border-color .2s ease;
+}
+.form-peek:hover .peek-input { border-color: var(--green-200); }
+.cta-actions .btn-row { flex-direction: column; }
+.cta-actions .btn { width: 100%; }
+.step-cta .hours { display: block; margin-top: 14px; text-align: center; font-size: .9375rem; color: var(--muted); }
 
 /* ---------- FAQ ---------- */
 .faq { display: grid; gap: 11px; }
@@ -513,6 +537,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
   .js .facts-card > .fact, .js .steps > li, .js .chips > li {
     opacity: 1; transform: none; transition: none;
   }
+  .js .steps > li::after { transform: none; transition: none; }
   .btn:active, .srq-ans:active { transform: none; }
   .prog-bar { transition: none; }
 }
@@ -540,10 +565,81 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
   .cred { grid-template-columns: repeat(4, 1fr); padding: 22px 28px; }
   .cred div + div { border-left: 1px solid var(--cream-deep); padding-left: 22px; }
   .qa { grid-template-columns: .9fr 1.1fr; gap: 28px; align-items: start; }
-  .steps { grid-template-columns: 1fr 1fr; }
+  .step-cta { grid-template-columns: 1.5fr 1fr; align-items: center; gap: 40px; padding: 36px 40px; }
+  .steps { --dot: 64px; grid-template-columns: repeat(4, 1fr); column-gap: 28px; }
+  .step { padding: calc(var(--dot) + 22px) 0 0; text-align: center; }
+  .step:last-child { padding-bottom: 0; }
+  .step-dot { left: 50%; margin-left: calc(var(--dot) / -2); }
+  .step h4 { margin-top: 0; }
+  /* Garis dari tepi kanan lingkaran ini ke tepi kiri lingkaran berikutnya (kolom + gap 28px) */
+  .step::after { left: calc(50% + var(--dot) / 2); right: calc(-50% - 28px + var(--dot) / 2); top: calc(var(--dot) / 2 - 1px); bottom: auto; width: auto; height: 2px; }
   .loc { grid-template-columns: 1fr 1fr; gap: 36px; }
   .closing { margin: 0 20px 64px; padding: 68px 40px; }
 }
+
+/* ---------- Modal janji temu: bottom sheet di HP, panel kanan di desktop ---------- */
+body:has(.booking[open]) { overflow: hidden; }
+.booking {
+  inset: auto 0 0 0; margin: 0; padding: 0; border: 0;
+  width: 100%; max-width: 100%; max-height: 92dvh; overflow-y: auto; overscroll-behavior: contain;
+  background: var(--surface); color: var(--ink); border-radius: 24px 24px 0 0;
+  box-shadow: 0 -10px 40px rgba(28,74,58,.18);
+}
+.booking::backdrop { background: rgba(28,74,58,.4); }
+.booking-inner { padding: 20px 20px calc(28px + env(safe-area-inset-bottom, 0px)); }
+.booking-head { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+.booking-head h2 { margin: 0 auto 0 0; font-size: 1.5rem; }
+.booking-close {
+  flex: none; width: 44px; height: 44px; border: 0; border-radius: 50%; cursor: pointer;
+  display: grid; place-items: center; background: var(--cream-deep); color: var(--green-900);
+}
+.booking-close:hover { background: var(--green-100); }
+.booking-sub { margin: 0 0 20px; font-size: .9375rem; color: var(--muted); }
+
+.bk-field { margin: 0 0 18px; padding: 0; border: 0; min-width: 0; }
+.bk-label { display: block; margin-bottom: 6px; padding: 0; font-size: .9375rem; font-weight: 600; line-height: 1.4; color: var(--green-900); }
+.bk-hint { display: block; margin-top: 4px; font-size: .8125rem; line-height: 1.45; color: var(--muted); }
+.bk-input {
+  display: block; width: 100%; min-height: 48px; padding: 11px 14px;
+  border: 1.5px solid var(--green-200); border-radius: 12px; background: var(--cream);
+  font: inherit; font-size: 1rem; color: var(--ink);
+}
+.bk-input:focus { border-color: var(--green-700); }
+.bk-choice { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.bk-choice label {
+  display: flex; align-items: center; gap: 9px; min-height: 48px; padding: 0 14px; cursor: pointer;
+  border: 1.5px solid var(--green-200); border-radius: 12px; font-weight: 500;
+}
+.bk-choice label:has(input:checked) { border-color: var(--green-700); background: var(--green-50); }
+.bk-choice input { accent-color: var(--green-700); width: 18px; height: 18px; margin: 0; }
+.bk-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.bk-slot {
+  min-height: 46px; border: 1.5px solid var(--green-200); border-radius: 12px; cursor: pointer;
+  background: var(--surface); font: inherit; font-weight: 600; color: var(--green-900);
+}
+.bk-slot:hover:not(:disabled) { background: var(--green-50); }
+.bk-slot[aria-pressed="true"] { background: var(--green-700); border-color: var(--green-700); color: #fff; }
+.bk-slot:disabled { cursor: not-allowed; color: var(--muted); text-decoration: line-through; opacity: .55; }
+.bk-error { margin: 8px 0 0; font-size: .875rem; font-weight: 600; color: var(--care-ink); }
+.booking .btn-primary { width: 100%; margin-top: 6px; }
+.bk-done h3 { margin-bottom: 6px; }
+.bk-done p { color: var(--muted); }
+
+@media (min-width: 760px) {
+  .booking {
+    inset: 0 0 0 auto; width: 440px; height: 100dvh; max-height: 100dvh;
+    border-radius: 24px 0 0 24px; box-shadow: -10px 0 40px rgba(28,74,58,.18);
+  }
+  .booking-inner { padding: 28px 32px 36px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .booking[open] { animation: sheetUp .32s cubic-bezier(.22,.7,.3,1); }
+  .booking[open]::backdrop { animation: fadeIn .32s ease; }
+  @media (min-width: 760px) { .booking[open] { animation-name: sheetIn; } }
+}
+@keyframes sheetUp { from { transform: translateY(100%); } }
+@keyframes sheetIn { from { transform: translateX(100%); } }
+@keyframes fadeIn { from { opacity: 0; } }
 </style>
 <script>if ('IntersectionObserver' in window) document.documentElement.classList.add('js');</script>
 </head>
@@ -754,19 +850,30 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
     </div>
 
     <ol class="steps">
-      <li class="step"><h4>Pilih jadwal</h4><p>Isi nama, nomor WhatsApp, dan jam yang kamu mau. Nggak perlu cerita keluhan di situ.</p></li>
-      <li class="step"><h4>Admin menghubungi</h4><p>Admin mengonfirmasi jadwalnya lewat WhatsApp, dan menanyakan keluhanmu singkat saja supaya dokter siap.</p></li>
-      <li class="step"><h4>Hari konsultasi</h4><p>Kamu cerita, dokter bertanya dan mendengarkan. Sekitar [xx] menit. Boleh cerita sebanyak yang kamu nyaman.</p></li>
-      <li class="step"><h4>Rencana dan kontrol</h4><p>Dokter menjelaskan pilihan perawatannya, lalu kalian sepakati kapan kontrol berikutnya.</p></li>
+      <li class="step"><span class="step-dot" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg></span><h4>Pilih jadwal</h4><span class="step-where">Di website ini</span><p>Isi nama, nomor WhatsApp, dan jam yang kamu mau. Nggak perlu cerita keluhan di situ.</p></li>
+      <li class="step"><span class="step-dot" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a8 8 0 0 1-11.6 7.1L4 20l1.4-4.2A8 8 0 1 1 20 11.5z"/></svg></span><h4>Admin menghubungi</h4><span class="step-where">Lewat WhatsApp</span><p>Admin mengonfirmasi jadwalnya lewat WhatsApp, dan menanyakan keluhanmu singkat saja supaya dokter siap.</p></li>
+      <li class="step"><span class="step-dot" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17M3 21h18"/><path d="M14.5 12h.01"/></svg></span><h4>Hari konsultasi</h4><span class="step-where">Di tempat praktek</span><p>Kamu cerita, dokter bertanya dan mendengarkan. Sekitar [xx] menit. Boleh cerita sebanyak yang kamu nyaman.</p></li>
+      <li class="step"><span class="step-dot" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/></svg></span><h4>Rencana dan kontrol</h4><span class="step-where">Di akhir sesi</span><p>Dokter menjelaskan pilihan perawatannya, lalu kalian sepakati kapan kontrol berikutnya.</p></li>
     </ol>
 
     <div class="step-cta">
-      <p>Kalau sudah terasa masuk akal, langkah pertamanya cuma mengisi empat kolom.</p>
-      <div class="btn-row">
-        <a class="btn btn-primary" href="reservasi.html">Buat janji temu</a>
-        <a class="btn btn-soft" href="https://wa.me/[NOMOR_ADMIN]?text=Halo%2C%20saya%20mau%20tanya%20dulu." target="_blank" rel="noopener">Tanya admin dulu</a>
+      <div>
+        <p>Kalau sudah terasa masuk akal, langkah pertamanya cuma mengisi empat kolom ini.</p>
+        <!-- Pratinjau formulir, isinya sama dengan reservasi.html. Klik di mana saja membuka formulir; keyboard pakai tombol di sebelahnya. -->
+        <a class="form-peek" href="reservasi.html" tabindex="-1" aria-hidden="true">
+          <span><span class="peek-label">Nama</span><span class="peek-input">Nama lengkap atau inisial</span></span>
+          <span><span class="peek-label">Nomor WhatsApp</span><span class="peek-input">08xxxxxxxxxx</span></span>
+          <span><span class="peek-label">Tanggal</span><span class="peek-input">Pilih tanggal</span></span>
+          <span><span class="peek-label">Jam</span><span class="peek-input">Pilih jam</span></span>
+        </a>
       </div>
-      <span class="hours">Praktek [Senin–Jumat] · [16.00–19.00]</span>
+      <div class="cta-actions">
+        <div class="btn-row">
+          <a class="btn btn-primary" href="reservasi.html">Buat janji temu</a>
+          <a class="btn btn-soft" href="https://wa.me/[NOMOR_ADMIN]?text=Halo%2C%20saya%20mau%20tanya%20dulu." target="_blank" rel="noopener">Tanya admin dulu</a>
+        </div>
+        <span class="hours">Praktek [Senin–Jumat] · [16.00–19.00]</span>
+      </div>
     </div>
   </div>
 </section>
@@ -875,6 +982,75 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
     <p>© [Tahun] [Nama Praktek] · [Nama Dokter], Sp.KJ · SIP [Nomor]</p>
   </div>
 </footer>
+
+<!-- Modal janji temu. Tanpa JS / tanpa <dialog>, semua link tetap ke reservasi.html.
+     ponytail: tanggal & jam masih data contoh yang sama dengan reservasi.html; ganti ke jadwal asli saat backend ada. -->
+<dialog class="booking" id="booking" aria-labelledby="booking-title">
+  <div class="booking-inner">
+    <div class="booking-head">
+      <h2 id="booking-title">Buat janji temu</h2>
+      <button type="button" class="booking-close" data-close aria-label="Tutup">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+
+    <form id="booking-form" novalidate>
+      <p class="booking-sub">Admin akan menghubungi lewat WhatsApp untuk mengonfirmasi jadwalnya. Nggak perlu cerita keluhan di sini.</p>
+
+      <div class="bk-field">
+        <label class="bk-label" for="bk-nama">Nama</label>
+        <input class="bk-input" id="bk-nama" name="nama" autocomplete="name" placeholder="Nama lengkap atau inisial" required>
+        <span class="bk-hint">Boleh pakai inisial kalau lebih nyaman.</span>
+      </div>
+
+      <div class="bk-field">
+        <label class="bk-label" for="bk-hp">Nomor WhatsApp</label>
+        <input class="bk-input" id="bk-hp" name="hp" type="tel" inputmode="tel" autocomplete="tel" placeholder="08xxxxxxxxxx"
+               pattern="(\+62|62|0)8[0-9]{7,12}" required aria-describedby="bk-hp-hint">
+        <span class="bk-hint" id="bk-hp-hint">Dipakai admin untuk mengonfirmasi jadwal.</span>
+      </div>
+
+      <fieldset class="bk-field">
+        <legend class="bk-label">Status</legend>
+        <div class="bk-choice">
+          <label><input type="radio" name="status" value="baru" checked> Pasien baru</label>
+          <label><input type="radio" name="status" value="kontrol"> Kontrol</label>
+        </div>
+      </fieldset>
+
+      <div class="bk-field">
+        <label class="bk-label" for="bk-tanggal">Tanggal</label>
+        <select class="bk-input" id="bk-tanggal" name="tanggal">
+          <option>Kamis, 8 Oktober 2026</option>
+          <option>Jumat, 9 Oktober 2026</option>
+          <option>Sabtu, 10 Oktober 2026</option>
+        </select>
+      </div>
+
+      <fieldset class="bk-field">
+        <legend class="bk-label">Jam</legend>
+        <div class="bk-slots">
+          <button type="button" class="bk-slot" aria-pressed="false">16.00</button>
+          <button type="button" class="bk-slot" disabled>16.30</button>
+          <button type="button" class="bk-slot" aria-pressed="false">17.00</button>
+          <button type="button" class="bk-slot" aria-pressed="false">17.30</button>
+          <button type="button" class="bk-slot" disabled>18.00</button>
+          <button type="button" class="bk-slot" aria-pressed="false">18.30</button>
+        </div>
+        <span class="bk-hint">Jam yang dicoret sudah terisi.</span>
+      </fieldset>
+
+      <p class="bk-error" id="bk-error" role="alert" hidden></p>
+      <button type="submit" class="btn btn-primary">Kirim permintaan</button>
+    </form>
+
+    <div class="bk-done" id="booking-done" hidden>
+      <h3>Permintaan terkirim</h3>
+      <p>Admin akan menghubungi lewat WhatsApp untuk mengonfirmasi jadwal. Jadwal baru pasti setelah dikonfirmasi admin.</p>
+      <button type="button" class="btn btn-soft" data-close>Tutup</button>
+    </div>
+  </div>
+</dialog>
 
 <div class="mobile-cta" id="mobile-cta">
   <a class="btn btn-primary" href="reservasi.html">Buat janji temu</a>
@@ -1046,6 +1222,53 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
       var next = tabs[(i + d + tabs.length) % tabs.length];
       select(next); next.focus();
     });
+  });
+})();
+</script>
+
+<script>
+// Modal janji temu: semua link ke reservasi.html membuka modal (kalau browser mendukung <dialog>)
+(function () {
+  var dlg = document.getElementById('booking');
+  if (!dlg || typeof dlg.showModal !== 'function') return;
+  var form = document.getElementById('booking-form');
+  var done = document.getElementById('booking-done');
+  var err = document.getElementById('bk-error');
+  var slots = [].slice.call(dlg.querySelectorAll('.bk-slot:not(:disabled)'));
+
+  document.querySelectorAll('a[href="reservasi.html"]').forEach(function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); dlg.showModal(); });
+  });
+  dlg.querySelectorAll('[data-close]').forEach(function (b) {
+    b.addEventListener('click', function () { dlg.close(); });
+  });
+  // Klik di area redup (di luar panel) menutup modal
+  dlg.addEventListener('click', function (e) {
+    if (e.target !== dlg) return; // klik keyboard (Enter) di tombol dalam modal punya clientX/Y 0
+    var r = dlg.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
+  });
+
+  slots.forEach(function (s) {
+    s.addEventListener('click', function () {
+      slots.forEach(function (o) { o.setAttribute('aria-pressed', String(o === s)); });
+      err.hidden = true;
+    });
+  });
+
+  function fail(msg, el) { err.textContent = msg; err.hidden = false; el.focus(); }
+
+  // ponytail: belum terkirim ke mana pun, sama seperti prototipe reservasi.html; sambungkan ke backend/WhatsApp admin nanti
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nama = form.elements.nama, hp = form.elements.hp;
+    hp.value = hp.value.replace(/[\s-]/g, '');
+    if (!nama.value.trim()) return fail('Isi nama dulu, inisial juga boleh.', nama);
+    if (!hp.checkValidity()) return fail('Nomor WhatsApp belum benar. Contoh: 081234567890.', hp);
+    if (!slots.some(function (s) { return s.getAttribute('aria-pressed') === 'true'; })) return fail('Pilih salah satu jam dulu.', slots[0]);
+    form.hidden = true;
+    done.hidden = false;
+    done.querySelector('[data-close]').focus();
   });
 })();
 </script>
